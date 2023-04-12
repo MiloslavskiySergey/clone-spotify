@@ -8,15 +8,16 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "pinia": "^2.0.33",
+    "pinia": "^2.0.34",
     "pinia-plugin-persistedstate": "^3.1.0",
+    "prettier": "^2.8.7",
     "uniqolor": "^1.1.0",
     "vue": "^3.2.47",
     "vue-material-design-icons": "^5.2.0",
     "vue-router": "^4.1.6"
   },
   "devDependencies": {
-    "@jridgewell/sourcemap-codec": "^1.4.14",
+    "@jridgewell/sourcemap-codec": "^1.4.15",
     "@vitejs/plugin-vue": "^4.1.0",
     "autoprefixer": "^10.4.14",
     "postcss": "^8.4.21",
