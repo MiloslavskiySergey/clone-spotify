@@ -1,5 +1,5 @@
 <script setup>
-import CategorySelect from '../components/CategorySelect.vue'
+import CategorySelect from '/src/components/CategorySelect.vue'
 </script>
 <template>
   <div class="p-8">
