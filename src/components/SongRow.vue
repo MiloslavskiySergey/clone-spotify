@@ -4,6 +4,12 @@ import Play from 'vue-material-design-icons/Play.vue'
 import Pause from 'vue-material-design-icons/Pause.vue'
 import Heart from 'vue-material-design-icons/Heart.vue'
 
+import { useSongStore } from '../stores/song'
+import { storeToRefs } from 'pinia'
+
+const useSong = useSongStore()
+const { isPlaying, currentTrack } = storeToRefs(useSong)
+
 let isHover = ref(false)
 let isTrackTime = ref(null)
 
@@ -37,26 +43,38 @@ onMounted(() => {
         class="w-[40px] ml-[14px] mr-[6px] cursor-pointer"
       >
         <Play
-          v-if="true"
+          v-if="!isPlaying"
           fillColor="#FFFFFF"
           :size="25"
+          @click="useSong.playOrPauseThisSong(artist, track)"
         />
         <Play
+          v-else-if="isPlaying && currentTrack.name !== track.name"
+          fillColor="#FFFFFF"
+          :size="25"
+          @click="useSong.loadSong(artist, track)"
+        />
+
+        <Pause
           v-else
           fillColor="#FFFFFF"
           :size="25"
+          @click="useSong.playOrPauseSong()"
         />
       </div>
       <div
         v-else
         class="text-white font-semibold w-[40px] ml-5"
       >
-        <span>
+        <span :class="{ 'text-green-500': currentTrack && currentTrack.name === track.name }">
           {{ index }}
         </span>
       </div>
       <div>
-        <div class="text-white font-semibold">
+        <div
+          :class="{ 'text-green-500': currentTrack && currentTrack.name === track.name }"
+          class="text-white font-semibold"
+        >
           {{ track.name }}
         </div>
         <div class="text-sm font-semibold text-gray-400">{{ artist.name }}</div>

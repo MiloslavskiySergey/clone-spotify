@@ -7,6 +7,7 @@ import Heart from 'vue-material-design-icons/Heart.vue'
 import ClockTimeThreeOutline from 'vue-material-design-icons/ClockTimeThreeOutline.vue'
 import artist from '/src/artist.json'
 </script>
+
 <template>
   <div class="p-8">
     <button
