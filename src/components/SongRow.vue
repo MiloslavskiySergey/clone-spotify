@@ -4,7 +4,7 @@ import Play from 'vue-material-design-icons/Play.vue'
 import Pause from 'vue-material-design-icons/Pause.vue'
 import Heart from 'vue-material-design-icons/Heart.vue'
 
-import { useSongStore } from '../stores/song'
+import { useSongStore } from '/src/stores/song'
 import { storeToRefs } from 'pinia'
 
 const useSong = useSongStore()
@@ -16,7 +16,7 @@ let isTrackTime = ref(null)
 const props = defineProps({
   track: Object,
   artist: Object,
-  index: Object
+  index: Number
 })
 
 const { track, artist, index } = toRefs(props)
@@ -31,6 +31,7 @@ onMounted(() => {
   })
 })
 </script>
+
 <template>
   <li
     class="flex items-center justify-between rounded-md hover:bg-[#2A2929]"

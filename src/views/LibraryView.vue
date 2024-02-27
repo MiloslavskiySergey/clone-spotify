@@ -6,10 +6,23 @@ import DotsHorizontal from 'vue-material-design-icons/DotsHorizontal.vue'
 import Heart from 'vue-material-design-icons/Heart.vue'
 import ClockTimeThreeOutline from 'vue-material-design-icons/ClockTimeThreeOutline.vue'
 import artist from '/src/artist.json'
+import { useSongStore } from '/src/stores/song'
+import { storeToRefs } from 'pinia'
+
+const useSong = useSongStore()
+const { isPlaying, currentTrack, currentArtist } = storeToRefs(useSong)
+
+const playFunc = () => {
+  if (currentTrack.value) {
+    useSong.playOrPauseThisSong(currentArtist.value, currentTrack.value)
+    return
+  }
+  useSong.playFromFirst()
+}
 </script>
 
 <template>
-  <div class="p-8">
+  <div class="p-8 overflow-x-hidden">
     <button
       type="button"
       class="text-white text-2xl font-semibold hover:underline cursor-pointer"
@@ -18,7 +31,6 @@ import artist from '/src/artist.json'
     </button>
 
     <div class="py-1.5"></div>
-
     <div class="flex items-center w-full relative h-full">
       <img
         width="140"
@@ -28,32 +40,34 @@ import artist from '/src/artist.json'
       <div class="w-full ml-5">
         <div
           style="font-size: 33px"
-          class="text-white absolute w-full hover:underline cursor-pointer top-0 font-semibold"
+          class="text-white absolute w-full hover:underline cursor-pointer top-0 font-bosemiboldld"
         >
           {{ artist.name }}
         </div>
+
         <div class="text-gray-300 text-[13px] flex">
           <div class="flex">Album</div>
-          <div class="ml-5 flex">
+          <div class="ml-2 flex">
             <div class="circle mt-2 mr-2" />
             <span class="-ml-0.5">{{ artist.releaseYear }}</span>
           </div>
-          <div class="ml-5 flex">
+          <div class="ml-2 flex">
             <div class="circle mt-2 mr-2" />
             <span class="-ml-0.5">{{ artist.tracks.length }} songs</span>
           </div>
         </div>
+
         <div class="absolute flex gap-4 items-center justify-start bottom-0 mb-1.5">
           <button
-            type="button"
             class="p-1 rounded-full bg-white"
+            @click="playFunc()"
           >
             <Play
-              v-if="true"
+              v-if="!isPlaying"
               fillColor="#181818"
               :size="25"
             />
-            <Play
+            <Pause
               v-else
               fillColor="#181818"
               :size="25"
@@ -74,6 +88,7 @@ import artist from '/src/artist.json'
         </div>
       </div>
     </div>
+
     <div class="mt-6"></div>
     <div class="flex items-center justify-between px-5 pt-2">
       <div class="flex items-center justify-between text-gray-400">
@@ -90,7 +105,7 @@ import artist from '/src/artist.json'
     <div class="border-b border-b-[#2A2A2A] mt-2"></div>
     <div class="mb-4"></div>
     <ul
-      class="w-ful"
+      class="w-full"
       v-for="(track, index) in artist.tracks"
       :key="track"
     >
